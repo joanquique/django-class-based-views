@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Mis productos</title></head>
+<body>
+  <h1>Mis productos</h1>
+
+  <ul>
+    {% for p in products %}
+      <li>{{ p.title }} - ${{ p.price }}</li>
+    {% empty %}
+      <li>No tienes productos aún.</li>
+    {% endfor %}
+  </ul>
+
+  <p><a href="{% url 'product_list' %}">Volver al listado</a></p>
+</body>
+</html>

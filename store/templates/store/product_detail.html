@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>{{ product.title }}</title></head>
+<body>
+  <h1>{{ product.title }}</h1>
+
+  <p><strong>Precio:</strong> ${{ product.price }}</p>
+  <p><strong>Descripción:</strong> {{ product.description }}</p>
+  <p><strong>Vendedor:</strong> {{ product.seller }}</p>
+  <p><strong>Color:</strong> {{ product.color }}</p>
+  <p><strong>Dimensiones:</strong> {{ product.product_dimensions }}</p>
+
+  <p>
+    <a href="{% url 'product_update' product.pk %}">Editar</a> |
+    <a href="{% url 'product_delete' product.pk %}">Eliminar</a> |
+    <a href="{% url 'product_list' %}">Volver</a>
+  </p>
+</body>
+</html>

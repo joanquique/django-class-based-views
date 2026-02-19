@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Formulario producto</title></head>
+<body>
+  <h1>Formulario de producto</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+
+  <p><a href="{% url 'product_list' %}">Volver</a></p>
+</body>
+</html>

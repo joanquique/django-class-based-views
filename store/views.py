@@ -11,6 +11,11 @@ from .models import Product
 from .serializers import ProductSerializer
 from .pagination import ProductPagination
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+
 class ProductPagination(PageNumberPagination):
     page_size = 20
     page_query_param = "p"          # renombrado
@@ -57,3 +62,15 @@ class ProductListAPI(ListAPIView):
     queryset = Product.objects.all().order_by("id")
     serializer_class = ProductSerializer
     pagination_class = ProductPagination
+    
+class MyProfileView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+        })

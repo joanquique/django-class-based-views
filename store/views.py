@@ -3,6 +3,19 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Product
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.pagination import PageNumberPagination
+
+from rest_framework.generics import ListAPIView
+
+from .models import Product
+from .serializers import ProductSerializer
+from .pagination import ProductPagination
+
+class ProductPagination(PageNumberPagination):
+    page_size = 20
+    page_query_param = "p"          # renombrado
+    page_size_query_param = "size"  # renombrado
+    max_page_size = 100
 
 class ProductListView(ListView):
     model = Product
@@ -39,3 +52,8 @@ class ProtectedListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Product.objects.filter(owner=self.request.user).order_by("-id")
+
+class ProductListAPI(ListAPIView):
+    queryset = Product.objects.all().order_by("id")
+    serializer_class = ProductSerializer
+    pagination_class = ProductPagination
